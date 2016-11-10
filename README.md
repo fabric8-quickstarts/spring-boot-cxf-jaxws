@@ -47,6 +47,10 @@ The output log will give the URL to access the endpoint, something like
 [INFO] F8:[SVC] spring-boot-cxf-jaxws: http://192.168.64.7:32224
 ```
 
+You need to append the context-path `service/hello` to access the service so the URL is something like
+
+    http://192.168.64.7:32224/service/hello
+
 To list all the running pods:
 
     oc get pods
@@ -59,7 +63,9 @@ You can also use the [fabric8 developer console](http://fabric8.io/guide/console
 
 To access the endpoint, use the host and port from the output log when run mvn fabric8:run
 
-http://192.168.64.7:32224/Service/Hello?WSDL will now display the generated WSDL.
+    http://192.168.64.7:32224/service/hello?wsdl
+    
+... will now display the generated WSDL.
 
 ### More details
 
