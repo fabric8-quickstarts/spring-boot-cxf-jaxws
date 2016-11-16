@@ -1,10 +1,9 @@
-# Spring-Boot Camel QuickStart
+# Spring-Boot CXF JAXWS QuickStart
 
-This example demonstrates how you can use Apache Camel with Spring Boot
+This example demonstrates how you can use Apache CXF with Spring Boot
 based on a [fabric8 Java base image](https://github.com/fabric8io/base-images#java-base-images).
 
-The quickstart uses Spring Boot to configure a little application that includes a Camel
-route that triggers a message every 5th second, and routes the message to a log.
+The quickstart uses Spring Boot to configure a little application that includes a CXF JAXWS endpoint.
 
 
 ### Building
@@ -43,6 +42,15 @@ Then the following command will package your app and run it on Kubernetes:
 mvn fabric8:run
 ```
 
+The output log will give the URL to access the endpoint, something like
+```
+[INFO] F8:[SVC] spring-boot-cxf-jaxws: http://192.168.64.7:32224
+```
+
+You need to append the context-path `service/hello` to access the service so the URL is something like
+
+    http://192.168.64.7:32224/service/hello
+
 To list all the running pods:
 
     oc get pods
@@ -53,9 +61,11 @@ Then find the name of the pod that runs this quickstart, and output the logs fro
 
 You can also use the [fabric8 developer console](http://fabric8.io/guide/console.html) to manage the running pods, and view logs and much more.
 
-To access the endpoint:
+To access the endpoint, use the host and port from the output log when run mvn fabric8:run
 
-http://${docker_node_ip}:32224/Service/Hello?WSDL will now display the generated WSDL.
+    http://192.168.64.7:32224/service/hello?wsdl
+    
+... will now display the generated WSDL.
 
 ### More details
 
