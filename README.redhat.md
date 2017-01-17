@@ -32,17 +32,8 @@ oc get pods
 Then the following command will package your app and run it on OpenShift:
 
 ```
-mvn fabric8:run
+mvn fabric8:deploy
 ```
-
-The output log will give the URL to access the endpoint, something like
-```
-[INFO] F8:[SVC] spring-boot-cxf-jaxws: http://192.168.64.7:32224
-```
-
-You need to append the context-path `service/hello` to access the service so the URL is something like
-
-    http://192.168.64.7:32224/service/hello
 
 To list all the running pods:
 
