@@ -68,9 +68,20 @@ Now when you use "Add to Project" button in the OpenShift console, you should se
 
 ### Accessing the Endpoints
 
-To access the endpoint, use the host and port from the output log when run mvn fabric8:run
+To access the endpoint you first need to create an OpenShift route for the service so that it can be exposed externally.  You can use the 'oc create route' command to create the route and the 'oc get routes' to get the host name for
+the route that you created.  Example:
 
-    http://192.168.64.7:32224/service/hello?wsdl
+
+    $ oc create route edge example1 --service=spring-boot-cxf-jaxws
+    route "example1" created
+    
+    $ oc get routes example1
+    NAME       HOST/PORT                                PATH      SERVICES                PORT      TERMINATION
+    example1   example1-myproject.192.168.64.2.xip.io             spring-boot-cxf-jaxws   http      edge
+
+You can then use the host report to access the service:
+
+    https://example1-myproject.192.168.64.2.xip.io/service/hello?wsdl
     
 ... will now display the generated WSDL.
 
