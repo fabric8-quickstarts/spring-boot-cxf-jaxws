@@ -5,35 +5,24 @@ This example demonstrates how you can use Apache CXF with Spring Boot.
 The quickstart uses Spring Boot to configure a little application that includes a CXF JAXWS endpoint.
 
 
+
 ### Building
 
 The example can be built with
 
     mvn clean install
 
-
-### Running the example locally
-
-The example can be run locally using the following Maven goal:
-
-    mvn spring-boot:run
-
-
 ### Running the example in OpenShift
 
-It is assumed a running OpenShift platform is already running.
+It is assumed that:
+- OpenShift platform is already running, if not you can find details how to [Install OpenShift at your site](https://docs.openshift.com/container-platform/3.3/install_config/index.html).
+- Your system is configured for Fabric8 Maven Workflow, if not you can find a [Get Started Guide](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/single/red-hat-jboss-fuse-integration-services-20-for-openshift/)
+- The Red Hat JDG xPaaS product should already be installed and running on your OpenShift installation, one simple way to run a JDG service is following the documentation of the JDG xPaaS image for OpenShift related to the `datagrid65-basic` template
 
-Assuming your current shell is connected to OpenShift so that you can type a command like
 
-```
-oc get pods
-```
+TThen the following command will package your app and run it on OpenShift:
 
-Then the following command will package your app and run it on OpenShift:
-
-```
-mvn fabric8:deploy
-```
+    mvn fabric8:deploy
 
 To list all the running pods:
 
@@ -43,9 +32,11 @@ Then find the name of the pod that runs this quickstart, and output the logs fro
 
     oc logs <name of pod>
 
+You can also use the OpenShift [web console](https://docs.openshift.com/container-platform/3.3/getting_started/developers_console.html#developers-console-video) to manage the running pods, and view logs and much more.
+
 ### Running via an S2I Application Template
 
-Applicaiton templates allow you deploy applications to OpenShift by filling out a form in the OpenShift console that allows you to adjust deployment parameters.  This template uses an S2I source build so that it handle building and deploying the application for you.
+Application templates allow you deploy applications to OpenShift by filling out a form in the OpenShift console that allows you to adjust deployment parameters.  This template uses an S2I source build so that it handle building and deploying the application for you.
 
 First, import the Fuse image streams:
 
@@ -68,11 +59,11 @@ the route that you created.  Example:
     
     $ oc get routes example1
     NAME       HOST/PORT                                PATH      SERVICES                PORT      TERMINATION
-    example1   example1-myproject.192.168.64.2.xip.io             spring-boot-cxf-jaxws   http      edge
+    example1   example1-myproject.example.com                     spring-boot-cxf-jaxws   http      edge
 
 You can then use the host report to access the service:
 
-    https://example1-myproject.192.168.64.2.xip.io/service/hello?wsdl
+    https://example1-myproject.example.com /service/hello?wsdl
     
 ... will now display the generated WSDL.
 
