@@ -5,7 +5,7 @@
 
   <groupId>io.fabric8.quickstarts.cxf.jaxws</groupId>
   <artifactId>spring-boot-cxf-jaxws</artifactId>
-  <version>1.0.0.fuse-000090</version>
+  <version>1.0.0.fuse-000090-redhat-1</version>
 
   <name>Fabric8 :: Quickstarts :: Spring-Boot :: CXF JAXWS</name>
   <description>Spring Boot example running a CXF JAXWS Endpoint</description>
