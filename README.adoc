@@ -1,84 +1,106 @@
-# Spring-Boot CXF JAXWS QuickStart
+== Spring-Boot Camel CXF JAXWS QuickStart
 
 This example demonstrates how you can use Apache CXF with Spring Boot
-based on a [fabric8 Java base image](https://github.com/fabric8io/base-images#java-base-images).
+based on a https://github.com/fabric8io/base-images#java-base-images[fabric8 Java base image].
 
-The quickstart uses Spring Boot to configure a little application that includes a CXF JAXWS endpoint.
+IMPORTANT: This quickstart can run in 2 modes: standalone on your machine and on Kubernetes / OpenShift Cluster
 
+== Deployment options
 
-### Building
+You can run this quickstart in the following modes:
 
-The example can be built with
+* Kubernetese / Single-node OpenShift cluster
+* Standalone on your machine
 
-    mvn clean install
+The most effective way to run this quickstart is to deploy and run the project on OpenShift.
 
+For more details about running this quickstart on a single-node OpenShift cluster, CI/CD deployments, as well as the rest of the runtime, see the link:http://appdev.openshift.io/docs/spring-boot-runtime.html[Spring Boot Runtime Guide].
 
-### Running the example locally
+== Running the Quickstart on a single-node Kubernetes/OpenShift cluster
 
-The example can be run locally using the following Maven goal:
+A single-node Kubernetes/OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
 
-    mvn spring-boot:run
+If you have a single-node Kubernetes/OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can deploy your quickstart there.
 
+To deploy this quickstart to a running single-node OpenShift cluster:
 
-### Running the example in Kubernetes
+. Download the project and extract the archive on your local filesystem.
 
-It is assumed a running Kubernetes platform is already running. If not you can find details how to [get started](http://fabric8.io/guide/getStarted/index.html).
+. Log in to your OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u developer -p developer
+----
 
-Assuming your current shell is connected to Kubernetes or OpenShift so that you can type a command like
+. Create a new OpenShift project for the quickstart:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc new-project MY_PROJECT_NAME
+----
 
-```
-kubectl get pods
-```
+. Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/spring-boot-cxf-jaxws`) :
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd my_openshift/spring-boot-cxf-jaxws
+----
 
-or for OpenShift
+. Build and deploy the project to the OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn clean -DskipTests fabric8:deploy -Popenshift
+----
 
-```
-oc get pods
-```
+. In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
+Wait until you can see that the pod for the `spring-boot-cxf-jaxws` has started up.
 
-Then the following command will package your app and run it on Kubernetes:
+== Accessing the CXF JAXRS endpoint
 
-```
-mvn fabric8:run
-```
+When the example is running, a CXF JAXRS endpoint is available.
 
-The output log will give the URL to access the endpoint, something like
-```
-[INFO] F8:[SVC] spring-boot-cxf-jaxws: http://192.168.64.7:32224
-```
+If you run the example on a single-node OpenShift cluster, then the REST service is exposed at 'http://spring-boot-cxf-jaxws-MY_PROJECT_NAME.OPENSHIFT_IP_ADDR.nip.io/service`.
 
-You need to append the context-path `service/hello` to access the service so the URL is something like
+Notice: As it depends on your OpenShift setup, the hostname (route) might vary. Verify with `oc get routes` which hostname is valid for you.
 
-    http://192.168.64.7:32224/service/hello
+- <http://spring-boot-cxf-jaxws-MY_PROJECT_NAME.OPENSHIFT_IP_ADDR.nip.io/service/hello?wsdl>
+will now display the generated WSDL.
 
-To list all the running pods:
+== Integration Testing
 
-    oc get pods
+The example includes a https://github.com/fabric8io/fabric8/tree/master/components/fabric8-arquillian[fabric8 arquillian] Kubernetes Integration Test.
+Once the container image has been built and deployed in Kubernetes, the integration test can be run with:
 
-Then find the name of the pod that runs this quickstart, and output the logs from the running pods with:
+[source,bash,options="nowrap",subs="attributes+"]
+----
+mvn test -Dtest=*KT
+----
 
-    oc logs <name of pod>
+The test is disabled by default and has to be enabled using `-Dtest`. https://fabric8.io/guide/testing.html[Integration Testing] and https://fabric8.io/guide/arquillian.html[Fabric8 Arquillian Extension] provide more information on writing full fledged black box integration tests for Kubernetes.
 
-You can also use the [fabric8 developer console](http://fabric8.io/guide/console.html) to manage the running pods, and view logs and much more.
+== Running the quickstart standalone on your machine
 
-To access the endpoint, use the host and port from the output log when run mvn fabric8:run
+To run this quickstart as a standalone project on your local machine:
 
-    http://192.168.64.7:32224/service/hello?wsdl
-    
-... will now display the generated WSDL.
+. Download the project and extract the archive on your local filesystem.
+. Build the project:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd PROJECT_DIR
+$ mvn clean package
+----
+. Run the service:
 
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn spring-boot:run
+----
 
-### Integration Testing
+You can then access the CXF JAXRS endpoint directly from your Web browser, e.g.:
 
-The example includes a [fabric8 arquillian](https://github.com/fabric8io/fabric8/tree/v2.2.170.redhat/components/fabric8-arquillian) OpenShift Integration Test. 
-Once the container image has been built and deployed in OpenShift, the integration test can be run with:
-
-    mvn test -Dtest=*KT
-
-The test is disabled by default and has to be enabled using `-Dtest`. Open Source Community documentation at [Integration Testing](https://fabric8.io/guide/testing.html) and [Fabric8 Arquillian Extension](https://fabric8.io/guide/arquillian.html) provide more information on writing full fledged black box integration tests for OpenShift. 
-
-
-### More details
-
-You can find more details about running this [quickstart](http://fabric8.io/guide/quickstarts/running.html) on the website. This also includes instructions how to change the Docker image user and registry.
-
+- <http://localhost:8080/service/hello?wsdl>
+will now display the generated WSDL.
