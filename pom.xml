@@ -33,7 +33,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- configure the versions you want to use here -->
-        <fuse.bom.version>7.5.0-SNAPSHOT</fuse.bom.version>
+        <fuse.bom.version>7.8.0.fuse-sb2-780010</fuse.bom.version>
 
     <!-- maven plugin versions -->
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
@@ -45,7 +45,7 @@
       <dependency>
         <groupId>org.jboss.redhat-fuse</groupId>
         <artifactId>fuse-springboot-bom</artifactId>
-                <version>${fuse.bom.version}</version>
+        <version>${fuse.bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -88,9 +88,15 @@
       <artifactId>arquillian-cube-openshift</artifactId>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>io.fabric8</groupId>
-      <artifactId>kubernetes-assertions</artifactId>
+      <artifactId>kubernetes-model</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.fabric8</groupId>
+      <artifactId>kubernetes-client</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
