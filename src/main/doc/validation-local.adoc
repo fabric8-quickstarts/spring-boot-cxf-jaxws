@@ -1,0 +1,5 @@
+
+You can then access the CXF JAXRS endpoint directly from your Web browser, e.g.:
+
+- <http://localhost:8080/service/hello?wsdl>
+will display the generated WSDL.

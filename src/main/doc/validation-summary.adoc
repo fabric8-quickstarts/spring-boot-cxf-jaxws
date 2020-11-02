@@ -1,0 +1,10 @@
+== Accessing the CXF JAXRS endpoint
+
+When the example is running, a CXF JAXRS endpoint is available.
+
+If you run the example on a single-node OpenShift cluster, then the REST service is exposed at 'http://spring-boot-cxf-jaxws-MY_PROJECT_NAME.OPENSHIFT_IP_ADDR.nip.io/service/`.
+
+Notice: As it depends on your OpenShift setup, the hostname (route) might vary. Verify with `oc get routes` which hostname is valid for you.
+
+- <http://spring-boot-cxf-jaxws-MY_PROJECT_NAME.OPENSHIFT_IP_ADDR.nip.io/service/hello?wsdl>
+will display the generated WSDL.
