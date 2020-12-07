@@ -108,7 +108,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-                <groupId>org.apache.maven.plugins</groupId>
+        <groupId>org.apache.maven.plugins</groupId>
         <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <source>1.8</source>
@@ -131,7 +131,7 @@
       <plugin>
         <groupId>org.jboss.redhat-fuse</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${fuse.bom.version}</version>
+        <version>${fuse.bom.version}</version>
         <executions>
           <execution>
             <goals>
@@ -141,7 +141,7 @@
         </executions>
       </plugin>
 
-        </plugins>
+      </plugins>
     </build>
 
     <profiles>
@@ -165,6 +165,34 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                          <resources>
+                            <labels>
+                              <pod>
+                                <property>
+                                  <name>com.company</name>
+                                  <value>Red_Hat</value>
+                                </property>
+                                <property>
+                                  <name>rht.prod_name</name>
+                                  <value>Red_Hat_Integration</value>
+                                </property>
+                                <property>
+                                  <name>rht.prod_ver</name>
+                                  <value>7.9</value>
+                                </property>
+                                <property>
+                                  <name>rht.comp</name>
+                                  <value>spring-boot-cxf-jaxws</value>
+                                </property>
+                                <property>
+                                  <name>rht.comp_ver</name>
+                                  <value>${fuse.bom.version}</value>
+                                </property>
+                              </pod>
+                            </labels>
+                          </resources>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
